@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.4.0'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.Tework123'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(23)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web:3.4.0'
+    implementation 'org.springframework.boot:spring-boot-starter-security:3.4.0'
+
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '3.4.0'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '3.4.0'
+    implementation 'org.postgresql:postgresql:42.7.4'
+
+    compileOnly 'org.projectlombok:lombok:1.18.36'
+//    for right work @Data
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.36'
+
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
