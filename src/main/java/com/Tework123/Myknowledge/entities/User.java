@@ -1,20 +1,27 @@
 package com.Tework123.Myknowledge.entities;
 
 
+import com.Tework123.Myknowledge.entities.enums.Access;
 import com.Tework123.Myknowledge.entities.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "users")
 public class User implements UserDetails {
 
@@ -22,8 +29,15 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(unique = true)
     @Size(min = 3, max = 30, message = "3 to 30")
     private String username;
+
+    @Size(min = 3, max = 30, message = "3 to 30")
+    private String name;
+
+    @Size(min = 3, max = 30, message = "3 to 30")
+    private String surname;
 
     @Column(unique = true)
     @Size(min = 3, max = 30, message = "3 to 30")
@@ -33,8 +47,24 @@ public class User implements UserDetails {
     @Size(min = 4, max = 1000, message = "min 4")
     private String password;
 
-    private LocalDate dateJoined;
+    private LocalDateTime dateJoined;
 
+    @PrePersist
+    private void init() {
+        dateJoined = LocalDateTime.now();
+    }
+
+    private LocalDateTime dateLastEnter;
+
+    private String information;
+
+    private String avatar;
+
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<Book> books = new HashSet<>();
+
+    @Enumerated(EnumType.STRING)
+    private Access access;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
@@ -50,7 +80,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return username;
     }
 
     @Override
@@ -71,5 +101,30 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return active;
+    }
+
+    public User(String username, String password, Role role) {
+        this.username = username;
+        this.password = password;
+        this.roles.add(role);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof User user)) return false;
+        return id == user.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                '}';
     }
 }
