@@ -1,4 +1,4 @@
-package com.Tework123.Myknowledge.services.user;
+package com.Tework123.Myknowledge.settings.security;
 
 
 import com.Tework123.Myknowledge.entities.User;
@@ -14,13 +14,14 @@ import java.util.ArrayList;
 
 @Service
 @RequiredArgsConstructor
-public class CustomUserDetailsService implements UserDetailsService {
+public class JwtUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
+
 
         if (user == null) {
             throw new UsernameNotFoundException("User not authorized.");

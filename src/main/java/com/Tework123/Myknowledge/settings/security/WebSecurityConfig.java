@@ -1,22 +1,22 @@
 package com.Tework123.Myknowledge.settings.security;
 
-import com.Tework123.Myknowledge.services.user.CustomUserDetailsService;
-import lombok.AllArgsConstructor;
+import com.Tework123.Myknowledge.settings.security.jwt.JwtAuthenticationEntryPoint;
+import com.Tework123.Myknowledge.settings.security.jwt.JwtRequestFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @RequiredArgsConstructor
@@ -24,8 +24,13 @@ import org.springframework.context.annotation.Bean;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-    private final CustomUserDetailsService customUserDetailsService;
+    final private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    final private UserDetailsService jwtUserDetailsService;
+    final private JwtRequestFilter jwtRequestFilter;
 
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
+    }
 
     @Bean
     public AuthenticationManager authenticationManager(
@@ -65,13 +70,12 @@ public class WebSecurityConfig {
 //                                ).authenticated()
 
                                 .anyRequest().permitAll()
-                ).rememberMe((remember) -> remember
-//              куки устанавливаются, после дропа сервера не слетают, key обязателен
-                                .alwaysRemember(true)
-                                .tokenValiditySeconds(60 * 60 * 24 * 365)
-                                .key("mySecret")
-                )
-                .logout((logout) -> logout.permitAll());
+                );
+        http.exceptionHandling((exception) -> exception
+                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .accessDeniedPage("/error/forbidden"));
+
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
 
