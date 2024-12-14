@@ -1,9 +1,9 @@
 package com.Tework123.Myknowledge.dtos;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
 @Setter
 public class ResponseDto {
     private String message;

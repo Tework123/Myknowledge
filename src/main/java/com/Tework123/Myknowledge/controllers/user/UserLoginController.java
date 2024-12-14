@@ -9,14 +9,17 @@ import com.Tework123.Myknowledge.repositories.UserRepository;
 import com.Tework123.Myknowledge.services.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
 public class UserLoginController {
-    UserService userService;
+    private UserService userService;
+    private AuthenticationManager authenticationManager;
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignUpDto signUpDto) {
@@ -25,8 +28,19 @@ public class UserLoginController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<?> loginUser(@RequestBody SignInDto signInDto){
-        return ResponseEntity.ok(ResponseDto.toDto("login"));
+    public ResponseEntity<?> loginUser(@RequestBody SignInDto signInDto) {
 
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                signInDto.getUsername(), signInDto.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        return ResponseEntity.ok(ResponseDto.toDto("login successfully"));
+
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<ResponseDto> getUsers(Authentication auth) {
+        return ResponseEntity.ok(ResponseDto.toDto("users give to you"));
     }
 }

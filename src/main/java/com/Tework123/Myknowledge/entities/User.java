@@ -73,7 +73,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
+        return getRoles();
     }
 
     private boolean active;
@@ -107,6 +107,11 @@ public class User implements UserDetails {
         this.username = username;
         this.password = password;
         this.roles.add(role);
+    }
+
+    //        must be for login else 403
+    public User() {
+
     }
 
     @Override

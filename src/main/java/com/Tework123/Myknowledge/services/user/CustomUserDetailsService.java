@@ -26,10 +26,10 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User not authorized.");
         }
 
-        return userRepository.findByUsername(username);
-//        return new org.springframework.security.core.userdetails.User(
-//                user.getUsername(),
-//                user.getPassword(),
-//                new ArrayList<>(user.getRoles()));
+//        return user;
+        return new org.springframework.security.core.userdetails.User(
+                user.getUsername(),
+                user.getPassword(),
+                new ArrayList<>(user.getRoles()));
     }
 }
