@@ -49,7 +49,18 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                                 .requestMatchers(HttpMethod.GET,
                                         "/admin/**",
-                                        "/users"
+                                        "/users",
+                                        "/book",
+                                        "/book/{id}"
+                                ).authenticated()
+                                .requestMatchers(HttpMethod.POST,
+                                        "/book"
+                                ).authenticated()
+                                .requestMatchers(HttpMethod.PATCH,
+                                        "/book/{id}"
+                                ).authenticated()
+                                .requestMatchers(HttpMethod.DELETE,
+                                        "/book/{id}"
                                 ).authenticated()
 //                                .requestMatchers(
 //                                        "/admin/**").hasRole("ADMIN")
@@ -57,17 +68,7 @@ public class WebSecurityConfig {
                                         "/signin",
                                         "/signup"
                                 ).permitAll()
-//                                .requestMatchers(HttpMethod.POST,
-//                                        "/cars/create"
-//                                ).authenticated()
-//                                .requestMatchers(HttpMethod.PATCH,
-//                                        "/users/{id}"
-//
-//                                ).permitAll()
-//                                .requestMatchers(HttpMethod.DELETE,
-//                                        "/post/{id}",
-//                                        "/profile/delete"
-//                                ).authenticated()
+
 
                                 .anyRequest().permitAll()
                 );

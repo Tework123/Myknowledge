@@ -63,6 +63,11 @@ public class User implements UserDetails {
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "user")
     private Set<Book> books = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true,
+            fetch = FetchType.LAZY, mappedBy = "user1")
+    private Set<Relationship> relationships;
+//    maybe else one must be
+
     @Enumerated(EnumType.STRING)
     private Access access;
 

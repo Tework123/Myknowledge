@@ -24,12 +24,12 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class UserLoginController {
-    final private UserService userService;
-    final private AuthenticationManager authenticationManager;
-    final private JwtTokenUtil jwtTokenUtil;
-    final private JwtUserDetailsService jwtUserDetailsService;
+    private UserService userService;
+    private AuthenticationManager authenticationManager;
+    private JwtTokenUtil jwtTokenUtil;
+    private JwtUserDetailsService jwtUserDetailsService;
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignUpDto signUpDto) {

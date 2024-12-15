@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
 
@@ -32,8 +33,11 @@ public class Book {
 
     private LocalDate dateEndRead;
 
+    private LocalDateTime dateLastEnter;
+
     private int numberOfPages;
 
+    //  0 is null here
     private byte grade;
 
     private String language;
@@ -51,6 +55,10 @@ public class Book {
         this.title = title;
         this.author = author;
         this.user = user;
+    }
+
+    public Book() {
+
     }
 
     @Override
