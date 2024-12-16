@@ -20,7 +20,7 @@ import org.springframework.beans.factory.annotation.Value;
 public class JwtTokenUtil implements Serializable {
     @Value("${jwt.secret}")
     private String secret;
-    private final long EXPIRATION_TIME = 900_000 * 1000; // 15 minutes*1000
+    private final long EXPIRATION_TIME = 900_000 * 10000; // 15 minutes*1000
 
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);

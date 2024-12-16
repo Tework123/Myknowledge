@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -17,11 +19,23 @@ public class Relationship {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_1_id")
-    private User user_1;
+    private LocalDateTime dateCreate;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_2_id")
-    private User user_2;
+    @JoinColumn(name = "requestedRelationship_id")
+    private User requestedRelationship;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "receivedRelationship_id")
+    private User receivedRelationship;
+
+    @Override
+    public String toString() {
+        return "Relationship{" +
+                "requestedRelationship=" + requestedRelationship +
+                ", receivedRelationship=" + receivedRelationship +
+                ", dateCreate=" + dateCreate +
+                ", status=" + status +
+                '}';
+    }
 }

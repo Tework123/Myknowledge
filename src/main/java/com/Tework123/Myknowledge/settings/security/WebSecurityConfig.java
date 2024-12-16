@@ -47,31 +47,34 @@ public class WebSecurityConfig {
     protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests
-                                .requestMatchers(HttpMethod.GET,
-                                        "/admin/**",
-                                        "/users",
-                                        "/book",
-                                        "/book/{id}"
-                                ).authenticated()
-                                .requestMatchers(HttpMethod.POST,
-                                        "/book"
-                                ).authenticated()
-                                .requestMatchers(HttpMethod.PATCH,
-                                        "/book/{id}"
-                                ).authenticated()
-                                .requestMatchers(HttpMethod.DELETE,
-                                        "/book/{id}"
-                                ).authenticated()
+                        .requestMatchers(HttpMethod.GET,
+                                "/error/**"
+                        ).permitAll()
+                        .requestMatchers(HttpMethod.GET,
+                                "/admin/**",
+                                "/users",
+                                "/book",
+                                "/book/{id}",
+                                "/relationship"
+                        ).authenticated()
+                        .requestMatchers(HttpMethod.POST,
+                                "/book",
+                                "/relationship/{id}"
+                        ).authenticated()
+                        .requestMatchers(HttpMethod.PATCH,
+                                "/book/{id}"
+                        ).authenticated()
+                        .requestMatchers(HttpMethod.DELETE,
+                                "/book/{id}"
+                        ).authenticated()
 //                                .requestMatchers(
 //                                        "/admin/**").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.POST,
-                                        "/signin",
-                                        "/signup"
-                                ).permitAll()
+                        .requestMatchers(HttpMethod.POST,
+                                "/signin",
+                                "/signup"
+                        ).permitAll().anyRequest().permitAll());
 
 
-                                .anyRequest().permitAll()
-                );
         http.exceptionHandling((exception) -> exception
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .accessDeniedPage("/error/forbidden"));
