@@ -29,7 +29,6 @@ public class CustomGlobalExceptionController {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
-
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<?> handleException(CustomException ex) {
         return new ResponseEntity<>(ResponseDto.toDto(ex.getMessage()), ex.getHttpStatus());

@@ -51,7 +51,6 @@ public class WebSecurityConfig {
                                 "/error/**"
                         ).permitAll()
                         .requestMatchers(HttpMethod.GET,
-                                "/admin/**",
                                 "/users",
                                 "/book",
                                 "/book/{id}",
@@ -65,10 +64,11 @@ public class WebSecurityConfig {
                                 "/book/{id}"
                         ).authenticated()
                         .requestMatchers(HttpMethod.DELETE,
-                                "/book/{id}"
+                                "/book/{id}",
+                                "/relationship/{id}"
                         ).authenticated()
-//                                .requestMatchers(
-//                                        "/admin/**").hasRole("ADMIN")
+                        .requestMatchers(
+                                "/admin/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST,
                                 "/signin",
                                 "/signup"

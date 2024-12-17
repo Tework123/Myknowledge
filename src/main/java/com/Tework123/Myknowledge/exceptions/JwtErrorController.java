@@ -16,8 +16,6 @@ public class JwtErrorController {
     public ResponseEntity<?> forbidden() {
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
                 .body(ResponseDto.toDto("FORBIDDEN by jwt"));
-
-//        return new ResponseEntity<>("sorry forbidden", HttpStatus.FORBIDDEN);
     }
 
 }

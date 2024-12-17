@@ -28,6 +28,7 @@ public class RelationshipGetDto {
         userGetDto.setId(relationship.getRequestedRelationship().getId());
         userGetDto.setUsername(relationship.getRequestedRelationship().getUsername());
         relationshipGetDto.setUserGetDto(userGetDto);
+        relationshipGetDto.setStatus(relationship.getStatus());
 
         return relationshipGetDto;
     }

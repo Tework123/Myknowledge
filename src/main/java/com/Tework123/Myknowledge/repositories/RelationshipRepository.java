@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface RelationshipRepository extends JpaRepository<Relationship, Long> {
 
-    List<Relationship> findByRequestedRelationshipIdOrReceivedRelationshipId(Long id_1, Long id_2);
+    List<Relationship> findByRequestedRelationshipIdAndReceivedRelationshipId(Long id_1, Long id_2);
 
     List<Relationship> findByRequestedRelationshipId(Long id);
 
