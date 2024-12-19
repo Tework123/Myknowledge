@@ -1,0 +1,7 @@
+#databaseChangeLog:
+#  -include:
+#    file: db/changelog/changeset/create-db-init.yaml
+
+
+
+#create some migration for example, i must understand folder structure and command for liquibase
