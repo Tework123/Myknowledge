@@ -1,0 +1,225 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1734577832132-1
+      author: t1 (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: relationships_pkey
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: status
+                  type: VARCHAR(255)
+              - column:
+                  name: received_relationship_id
+                  type: BIGINT
+              - column:
+                  name: requested_relationship_id
+                  type: BIGINT
+              - column:
+                  name: date_create
+                  type: TIMESTAMP WITHOUT TIME ZONE
+            tableName: relationships
+  - changeSet:
+      id: 1734577832132-2
+      author: t1 (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                  name: user_id
+                  type: BIGINT
+              - column:
+                  name: roles
+                  type: VARCHAR(255)
+            tableName: user_role
+  - changeSet:
+      id: 1734577832132-3
+      author: t1 (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: users_pkey
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: access
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: active
+                  type: BOOLEAN
+              - column:
+                  name: avatar
+                  type: VARCHAR(255)
+              - column:
+                  name: date_joined
+                  type: TIMESTAMP WITHOUT TIME ZONE
+              - column:
+                  name: date_last_enter
+                  type: TIMESTAMP WITHOUT TIME ZONE
+              - column:
+                  name: email
+                  type: VARCHAR(30)
+              - column:
+                  name: information
+                  type: VARCHAR(255)
+              - column:
+                  name: name
+                  type: VARCHAR(30)
+              - column:
+                  name: password
+                  type: VARCHAR(1000)
+              - column:
+                  name: surname
+                  type: VARCHAR(30)
+              - column:
+                  name: username
+                  type: VARCHAR(30)
+            tableName: users
+  - changeSet:
+      id: 1734577832132-4
+      author: t1 (generated)
+      changes:
+        - addUniqueConstraint:
+            columnNames: email
+            constraintName: uk6dotkott2kjsp8vw4d0m25fb7
+            tableName: users
+  - changeSet:
+      id: 1734577832132-5
+      author: t1 (generated)
+      changes:
+        - addUniqueConstraint:
+            columnNames: username
+            constraintName: ukr43af9ap4edm43mmtq01oddj6
+            tableName: users
+  - changeSet:
+      id: 1734577832132-6
+      author: t1 (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: books_pkey
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: author
+                  type: VARCHAR(40)
+              - column:
+                  name: date_end_read
+                  type: date
+              - column:
+                  name: date_last_enter
+                  type: TIMESTAMP WITHOUT TIME ZONE
+              - column:
+                  name: date_publish
+                  type: date
+              - column:
+                  name: date_start_read
+                  type: date
+              - column:
+                  constraints:
+                    nullable: false
+                  name: grade
+                  type: SMALLINT
+              - column:
+                  name: language
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: number_of_pages
+                  type: INTEGER
+              - column:
+                  name: photo
+                  type: VARCHAR(255)
+              - column:
+                  name: purpose_read
+                  type: VARCHAR(255)
+              - column:
+                  name: title
+                  type: VARCHAR(30)
+              - column:
+                  name: user_id
+                  type: BIGINT
+            tableName: books
+  - changeSet:
+      id: 1734577832132-7
+      author: t1 (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: books
+            constraintName: fkcykkh3hxh89ammmwch0gw5o1s
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: users
+            validate: true
+  - changeSet:
+      id: 1734577832132-8
+      author: t1 (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: received_relationship_id
+            baseTableName: relationships
+            constraintName: fkflgr6hcr3yh7fgar4selfxl4
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: users
+            validate: true
+  - changeSet:
+      id: 1734577832132-9
+      author: t1 (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: user_role
+            constraintName: fkj345gk1bovqvfame88rcx7yyx
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: users
+            validate: true
+  - changeSet:
+      id: 1734577832132-10
+      author: t1 (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: requested_relationship_id
+            baseTableName: relationships
+            constraintName: fkkexwxi9jlet3d42nbbb1hiovl
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: users
+            validate: true
+

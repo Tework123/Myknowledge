@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: change-field-language-book
+      author: t1
+      changes:
+        - renameColumn:
+            tableName: books
+            newColumnName: language2
+            oldColumnName: language

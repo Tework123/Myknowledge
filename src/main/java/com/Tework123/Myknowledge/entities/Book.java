@@ -40,6 +40,7 @@ public class Book {
     //  0 is null here
     private byte grade;
 
+    @Column(name = "language2")
     private String language;
 
     private String photo;
