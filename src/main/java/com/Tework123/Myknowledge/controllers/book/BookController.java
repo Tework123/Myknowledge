@@ -43,7 +43,7 @@ public class BookController {
                                                   Authentication auth) {
         User currentUser = userRepository.findByUsername(auth.getName());
         Book savedBook = bookService.createBook(currentUser, bookCreateDto);
-        return ResponseEntity.ok(ResponseDto.toDto("Post create " + savedBook.getTitle()));
+        return ResponseEntity.ok(ResponseDto.toDto("Book create " + savedBook.getTitle()));
 
     }
 
