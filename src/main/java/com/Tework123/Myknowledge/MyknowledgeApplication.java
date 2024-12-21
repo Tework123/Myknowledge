@@ -6,8 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class MyknowledgeApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MyknowledgeApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(MyknowledgeApplication.class, args);
+    }
+
 
 }

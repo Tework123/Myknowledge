@@ -21,6 +21,9 @@ public class UserService {
 
     public void createUser(SignUpDto signUpDto) {
 
+//        System.out.println(passwordEncoder.encode("000000"));
+
+
         if (userRepository.existsByUsername(signUpDto.getUsername())) {
             throw new CustomException(HttpStatus.BAD_REQUEST, "User already exist");
         }

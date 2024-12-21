@@ -72,7 +72,8 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.POST,
                                 "/signin",
                                 "/signup"
-                        ).permitAll().anyRequest().permitAll());
+                        ).permitAll()
+                        .anyRequest().permitAll());
 
 
         http.exceptionHandling((exception) -> exception

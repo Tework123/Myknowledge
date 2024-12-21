@@ -1,9 +1,12 @@
 package com.Tework123.Myknowledge.settings.security;
 
 
+import com.Tework123.Myknowledge.entities.Book;
 import com.Tework123.Myknowledge.entities.User;
+import com.Tework123.Myknowledge.exceptions.customException.CustomException;
 import com.Tework123.Myknowledge.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,12 +25,12 @@ public class JwtUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
 
-        if (!user.isEnabled()) {
-            throw new UsernameNotFoundException("User was banned.");
+        if (user == null) {
+            throw new CustomException(HttpStatus.NOT_FOUND, "User not found.");
         }
 
-        if (user == null) {
-            throw new UsernameNotFoundException("User not authorized.");
+        if (!user.isEnabled()) {
+            throw new CustomException(HttpStatus.FORBIDDEN, "User was banned.");
         }
 
 //        return user;
