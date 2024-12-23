@@ -3,13 +3,13 @@ package com.Tework123.Myknowledge.controllers.book;
 
 import com.Tework123.Myknowledge.entities.Book;
 import com.Tework123.Myknowledge.repositories.BookRepository;
-import com.Tework123.Myknowledge.services.MyTokens;
 
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -38,6 +38,15 @@ public class BookControllerTest {
     @Autowired
     private BookRepository bookRepository;
 
+    @Value("${jwtTokenUser1}")
+    private String jwtTokenUser1;
+
+    @Value("${jwtTokenUser2}")
+    private String jwtTokenUser2;
+
+    @Value("${jwtTokenAdmin1}")
+    private String jwtTokenAdmin1;
+
     @Test
     @Order(1)
     public void createBook401Test() throws Exception {
@@ -52,7 +61,7 @@ public class BookControllerTest {
     @Order(2)
     public void createBook400AuthorTest() throws Exception {
         mockMvc.perform(post("/book")
-                        .header("Authorization", MyTokens.getToken())
+                        .header("Authorization", jwtTokenUser1)
                         .contentType(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(BookDtoTest.bookCreateDto400Author()))
@@ -65,7 +74,7 @@ public class BookControllerTest {
     @Order(3)
     public void createBook400TitleTest() throws Exception {
         mockMvc.perform(post("/book")
-                        .header("Authorization", MyTokens.getToken())
+                        .header("Authorization", jwtTokenUser1)
                         .contentType(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(BookDtoTest.bookCreateDto400Title()))
@@ -75,11 +84,10 @@ public class BookControllerTest {
     }
 
     @Test
-    @Sql(value = {"/clearBook.sql"})
     @Order(4)
     public void createBook200Test() throws Exception {
         mockMvc.perform(post("/book")
-                        .header("Authorization", MyTokens.getToken())
+                        .header("Authorization", jwtTokenUser1)
                         .contentType(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(BookDtoTest.bookCreateDto200()))
@@ -101,7 +109,7 @@ public class BookControllerTest {
     @Order(6)
     public void getBooks200Test() throws Exception {
         mockMvc.perform(get("/book")
-                        .header("Authorization", MyTokens.getToken())
+                        .header("Authorization", jwtTokenUser1)
                 ).andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()", is(1)));
 
@@ -122,7 +130,7 @@ public class BookControllerTest {
     public void getBook200Test() throws Exception {
         List<Book> books = bookRepository.findAll();
         mockMvc.perform(get("/book/" + books.get(0).getId())
-                .header("Authorization", MyTokens.getToken())
+                .header("Authorization", jwtTokenUser1)
         ).andDo(print()).andExpect(status().isOk());
     }
 
@@ -143,7 +151,7 @@ public class BookControllerTest {
     public void editBook403Test() throws Exception {
         List<Book> books = bookRepository.findAll();
         mockMvc.perform(patch("/book/" + books.get(0).getId())
-                        .header("Authorization", MyTokens.getToken2())
+                        .header("Authorization", jwtTokenUser2)
                         .contentType(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(BookDtoTest.bookEditDto()))
@@ -156,7 +164,7 @@ public class BookControllerTest {
     public void editBook200Test() throws Exception {
         List<Book> books = bookRepository.findAll();
         mockMvc.perform(patch("/book/" + books.get(0).getId())
-                        .header("Authorization", MyTokens.getToken())
+                        .header("Authorization", jwtTokenUser1)
                         .contentType(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(BookDtoTest.bookEditDto()))
@@ -169,7 +177,7 @@ public class BookControllerTest {
     public void editBook200EditTest() throws Exception {
         List<Book> books = bookRepository.findAll();
         mockMvc.perform(get("/book/" + books.get(0).getId())
-                        .header("Authorization", MyTokens.getToken())
+                        .header("Authorization", jwtTokenUser1)
                         .contentType(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(BookDtoTest.bookEditDto()))
@@ -192,7 +200,7 @@ public class BookControllerTest {
     public void deleteBook403Test() throws Exception {
         List<Book> books = bookRepository.findAll();
         mockMvc.perform(delete("/book/" + books.get(0).getId())
-                        .header("Authorization", MyTokens.getToken2())
+                        .header("Authorization", jwtTokenUser2)
                         .contentType(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(BookDtoTest.bookEditDto()))
@@ -205,7 +213,7 @@ public class BookControllerTest {
     public void deleteBook200Test() throws Exception {
         List<Book> books = bookRepository.findAll();
         mockMvc.perform(delete("/book/" + books.get(0).getId())
-                        .header("Authorization", MyTokens.getToken())
+                        .header("Authorization", jwtTokenUser1)
                         .contentType(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(BookDtoTest.bookEditDto()))
@@ -213,25 +221,5 @@ public class BookControllerTest {
                 .andExpect(jsonPath("$.message", is("Book deleted")));
 
     }
-
-
-//    all tests on 401, check security work
-
-// /book get, post !
-// /book/id get, patch, delete !
-
-//    get admin/users !
-//    patch admin/users/{id}/ban !
-//    patch admin/users/{id}/change_role
-
-//    get /relationship
-//    post, delete /relationship/{id}
-
-//    all tests on owner, check exception in services !
-//    all tests on miss fields
-//    admin user, ban and other !
-//    relationship
-//    tests delete cascade check -> delete user. separate file with tests book+user
-//    test register, bad password, token and other
 
 }

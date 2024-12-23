@@ -1,11 +1,8 @@
 package com.Tework123.Myknowledge.services;
 
-import com.Tework123.Myknowledge.dtos.book.BookCreateDto;
 import com.Tework123.Myknowledge.dtos.relationship.RelationshipCreateDto;
-import com.Tework123.Myknowledge.entities.Book;
 import com.Tework123.Myknowledge.entities.Relationship;
 import com.Tework123.Myknowledge.entities.User;
-import com.Tework123.Myknowledge.entities.enums.Status;
 import com.Tework123.Myknowledge.exceptions.customException.CustomException;
 import com.Tework123.Myknowledge.repositories.RelationshipRepository;
 import com.Tework123.Myknowledge.repositories.UserRepository;
@@ -72,6 +69,7 @@ public class RelationshipService {
         if (relationshipList2.isEmpty() && relationshipList1.isEmpty()) {
             throw new CustomException(HttpStatus.NOT_FOUND, "Relationship don't exist");
         }
+
         if (relationshipList1.isEmpty()) {
             relationshipRepository.delete(relationshipList2.getFirst());
 

@@ -13,5 +13,5 @@
 --VALUES (6, 'ROLE_ADMIN');
 
 
-UPDATE users
-SET active=true;
+--UPDATE users
+--SET active=true;

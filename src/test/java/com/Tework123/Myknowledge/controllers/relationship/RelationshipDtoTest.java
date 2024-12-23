@@ -35,32 +35,4 @@ public class RelationshipDtoTest {
         String requestJson = objectWriter.writeValueAsString(relationshipCreateDto);
         return requestJson;
     }
-
-//    public static String relationshipGetDto200() throws JsonProcessingException {
-//        RelationshipGetDto relationshipGetDto = new RelationshipGetDto();
-//        UserGetDto userGetDto = new UserGetDto();
-//        userGetDto.setId();
-//        relationshipGetDto.setStatus(Status.FRIEND);
-//        relationshipGetDto
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        objectMapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-//        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
-//        String requestJson = objectWriter.writeValueAsString(relationshipGetDto);
-//        return requestJson;
-//    }
-//
-//    public static List<RelationshipGetDto> toListRelationship(List<Relationship> bookFromDb) {
-//        return bookFromDb.stream().map(RelationshipGetDto::toDto)
-//                .collect(Collectors.toList());
-//    }
 }
-//public static RelationshipGetDto toDto(Relationship relationship) {
-//    RelationshipGetDto relationshipGetDto = new RelationshipGetDto();
-//    UserGetDto userGetDto = new UserGetDto();
-//    userGetDto.setId(relationship.getRequestedRelationship().getId());
-//    userGetDto.setUsername(relationship.getRequestedRelationship().getUsername());
-//    relationshipGetDto.setUserGetDto(userGetDto);
-//    relationshipGetDto.setStatus(relationship.getStatus());
-//
-//    return relationshipGetDto;
-//}

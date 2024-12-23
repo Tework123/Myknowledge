@@ -11,10 +11,12 @@ hs_err_pid*
 replay_pid*
 
 ##############################
-## Spring
+## MySpring
 ##############################
 application.properties
 applicationTest.properties
+applicationTest.txt
+junit-platform.properties
 
 ##############################
 ## Maven
