@@ -87,7 +87,7 @@ public class UserLoginControllerTest {
 
         try {
             BufferedWriter bufferWriter = new BufferedWriter(writer);
-            bufferWriter.write("jwtTokenUser1=Bearer " + token+"\n");
+            bufferWriter.write("jwtTokenUser1=Bearer " + token + "\n");
             bufferWriter.close();
         } catch (IOException e) {
             System.out.println(e);
@@ -107,7 +107,7 @@ public class UserLoginControllerTest {
 
         try {
             BufferedWriter bufferWriter = new BufferedWriter(writer);
-            bufferWriter.write("jwtTokenUser2=Bearer " + token+"\n");
+            bufferWriter.write("jwtTokenUser2=Bearer " + token + "\n");
             bufferWriter.close();
         } catch (IOException e) {
             System.out.println(e);
@@ -140,7 +140,7 @@ public class UserLoginControllerTest {
 
         try {
             BufferedWriter bufferWriter = new BufferedWriter(writer);
-            bufferWriter.write("jwtTokenAdmin1=Bearer " + token+"\n");
+            bufferWriter.write("jwtTokenAdmin1=Bearer " + token + "\n");
             bufferWriter.close();
         } catch (IOException e) {
             System.out.println(e);
@@ -152,3 +152,9 @@ public class UserLoginControllerTest {
     }
 
 }
+// check doc junit 5 and seacrch command for launch package with test
+// -> first: create user and token, second: other tests -> eazy
+// check jenkins
+//./gradlew clean test --info
+
+// com.Tework123.Myknowledge.controllers.admin.AdminControllerTest
