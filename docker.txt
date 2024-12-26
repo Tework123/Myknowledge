@@ -1,0 +1,46 @@
+
+# заметки по докеру для джавы:
+# не пересобирает dockerfile при docker-compose up -d, в отличии от питона
+# gradle выдает ошибку hibernate при запуске тестов, поэтому пока их пропускаем при сборке
+
+services:
+
+  nginx:
+    container_name: nginx
+    image: nginx:1.27.3
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./deployment/nginx/nginx.default.conf:/etc/nginx/conf.d/default.conf
+
+
+
+  backend:
+    container_name: backend
+    image: client:0.0.1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
+    environment:
+      - SERVER_PORT=8081
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/MyknowledgeDB
+  db:
+    container_name: db
+    image: postgres:17
+    environment:
+      - POSTGRES_DB=MyknowledgeDB
+      - POSTGRES_USER=postgres
+      #      это не мой пароль)
+      - POSTGRES_PASSWORD=ksflkOkas23fl9saflKdl349sLfsk1
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  db-data:
