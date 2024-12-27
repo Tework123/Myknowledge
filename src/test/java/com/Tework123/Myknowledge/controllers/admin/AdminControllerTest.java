@@ -121,7 +121,7 @@ public class AdminControllerTest {
                     .andExpect(result -> assertTrue
                             (result.getResolvedException() instanceof Exception));
 
-        } catch (CustomException _) {
+        } catch (CustomException e) {
         }
     }
 
