@@ -44,3 +44,18 @@ services:
 
 volumes:
   db-data:
+
+
+export PATH=/home/t1/liquibase-4.30.0:/home/t1/liquibase-4.30.0-bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/t1/.local/share/JetBrains/Toolbox/scripts
+
+
+
+export JAVA_HOME=/usr/java
+export PATH=$PATH:/usr/java/jdk-21.0.5/bin/
+export PATH=$PATH:/lib/jvm/java-17-openjdk-amd64/
+
+IpinE%2f1bdq
+
+sudo apt-get update
+sudo apt-get install openssh-server
+sudo ufw allow 22

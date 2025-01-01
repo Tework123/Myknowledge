@@ -7,10 +7,14 @@ plugins {
 group = 'com.Tework123'
 version = '0.0.1-SNAPSHOT'
 
+// java {
+//     toolchain {
+//         languageVersion = JavaLanguageVersion.of(21)
+//     }
+// }
+
 java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
+	sourceCompatibility = '21'
 }
 
 repositories {
@@ -30,7 +34,7 @@ dependencies {
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.36'
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-parent', version: '3.4.0', ext: 'pom'
+    // implementation group: 'org.springframework.boot', name: 'spring-boot-starter-parent', version: '3.4.0', ext: 'pom'
 
     implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
@@ -46,11 +50,11 @@ dependencies {
 
 }
 
-//java {
+// java {
 //    toolchain {
-//        implementation = JvmImplementation.J11
+//        implementation = JvmImplementation.J9
 //    }
-//}
+// }
 
 tasks.named('test') {
     useJUnitPlatform()
