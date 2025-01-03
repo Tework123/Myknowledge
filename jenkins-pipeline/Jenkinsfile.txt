@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+
+    stages {
+        // stage("Code") {
+        //     steps {
+        //         git url: "https://github.com/pankajpc15/banking-service-app.git", branch: "main"
+        //     }
+        // }
+        stage("hello") {
+            steps {
+                sh "whoami"
+            }
+        }
+
+        stage("Docker-Compose build") {
+            steps {
+                sh "docker-compose build"
+            }
+        }
+    }
+}        
